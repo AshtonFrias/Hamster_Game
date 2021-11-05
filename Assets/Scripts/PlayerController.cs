@@ -12,10 +12,13 @@ public class PlayerController : MonoBehaviour
     private Collider2D col;
     private Rigidbody2D rb;
 
-//for setting/getting hamster's max health and current health
+    //for setting/getting hamster's max health and current health
     public int maxHealth = 10;
     public int currentHealth;
     public HealthBar healthBar;
+
+    //gets/sets the hamster's lives
+    public Lives lives;
 
     private void Awake()
     {
@@ -41,6 +44,8 @@ public class PlayerController : MonoBehaviour
         
         currentHealth = maxHealth;  //setting health to 10
         healthBar.SetMaxHealth(maxHealth);
+
+        //TakeDamage(5);     //was using this for testing since no damage is in game yet
     }
 
     private void Jump()
@@ -78,5 +83,10 @@ public class PlayerController : MonoBehaviour
     void TakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
+
+        if(currentHealth==0)
+        {
+            lives.LoseLife();
+        }
     }
 }
