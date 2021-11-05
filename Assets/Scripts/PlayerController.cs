@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     private Collider2D col;
     private Rigidbody2D rb;
 
+//for setting/getting hamster's max health and current health
+    public int maxHealth = 10;
+    public int currentHealth;
+    public HealthBar healthBar;
+
     private void Awake()
     {
         playerMovementControls = new PlayerMovementControls();
@@ -33,6 +38,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerMovementControls.Land.Jump.performed += _ => Jump();
+        
+        currentHealth = maxHealth;  //setting health to 10
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Jump()
@@ -61,9 +69,14 @@ public class PlayerController : MonoBehaviour
     {
         //Read the movement value
         float movementInput = playerMovementControls.Land.Move.ReadValue<float>();
-        //Mobe the player
+        //Move the player
         Vector3 currentPosition = transform.position;
         currentPosition.x += movementInput * speed * Time.deltaTime;
         transform.position = currentPosition;
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth = currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
     }
 }
