@@ -89,4 +89,22 @@ public class PlayerController : MonoBehaviour
             lives.LoseLife();
         }
     }
+
+
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Slippy")
+        {
+            speed = 10;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Slippy")
+        {
+            speed = 5;
+        }
+    }
 }
