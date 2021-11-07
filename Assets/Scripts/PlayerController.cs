@@ -44,8 +44,6 @@ public class PlayerController : MonoBehaviour
         
         currentHealth = maxHealth;  //setting health to 10
         healthBar.SetMaxHealth(maxHealth);
-
-        //TakeDamage(5);     //was using this for testing since no damage is in game yet
     }
 
     private void Jump()
@@ -54,7 +52,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
         }
-
     }
 
     private bool IsGrounded()
@@ -84,13 +81,24 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth = currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
 
-        if(currentHealth==0)
+        healthBar.SetHealth(currentHealth);
+
+        if(currentHealth<=0)
         {
             lives.LoseLife();
+
+            if(lives.livesRemaining!=0)
+            {
+                //go back to checkpoint/start
+                healthBar.SetHealth(maxHealth);
+                currentHealth = maxHealth;
+            }
+            else
+            {
+                //LOSE
+            }
         }
     }
-
-
 
 
     private void OnTriggerEnter2D(Collider2D collision)
