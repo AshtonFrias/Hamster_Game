@@ -1589,7 +1589,7 @@ GameObject:
   - component: {fileID: 422193516}
   m_Layer: 0
   m_Name: Hamster
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1701,6 +1701,7 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 546016828}
   lives: {fileID: 2085714268}
+  isOnSlipperySurface: 0
 --- !u!58 &422193516
 CircleCollider2D:
   m_ObjectHideFlags: 0

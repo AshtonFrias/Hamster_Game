@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     //gets/sets the hamster's lives
     public Lives lives;
 
+    // triggered when on slippery surface
+    public bool isOnSlipperySurface;
+    private float accelerationSpeed, surfaceacceleration, surfacedecceleration, surfaceMaxSpeed;
+
     private void Awake()
     {
         playerMovementControls = new PlayerMovementControls();
@@ -75,12 +79,19 @@ public class PlayerController : MonoBehaviour
         //Read the movement value
         float movementInput = playerMovementControls.Land.Move.ReadValue<float>();
         //Move the player
-        Vector3 currentPosition = transform.position;
-        currentPosition.x += movementInput * speed * Time.deltaTime;
-        transform.position = currentPosition;
+        if (!isOnSlipperySurface)
+        {
+            Vector3 currentPosition = transform.position;
+            currentPosition.x += movementInput * speed * Time.deltaTime;
+            transform.position = currentPosition;
+        }
+        else 
+        {
+            slipAcceleration(movementInput);
+        }
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
 
@@ -90,21 +101,58 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void landedOnSlipperySurface(float _surfaceacceleration, float _surfacedecceleration, float maxSpeed)
     {
-        if(collision.tag == "Slippy")
-        {
-            speed = 10;
-        }
+        // pass over the surfaces "slipperiness"
+        surfaceacceleration = _surfaceacceleration;
+        surfacedecceleration = _surfacedecceleration;
+        surfaceMaxSpeed = maxSpeed;
+
+        // set the speed/direction of landing on surface
+        float movementInput = playerMovementControls.Land.Move.ReadValue<float>();
+        isOnSlipperySurface = true;
+        accelerationSpeed = movementInput * speed;
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    public void slipAcceleration(float movementInput)
     {
-        if (collision.tag == "Slippy")
+        // left acceleration
+        if (movementInput < 0)
         {
-            speed = 5;
+            accelerationSpeed = accelerationSpeed - surfaceacceleration * Time.deltaTime;
         }
+        // right acceleration
+        else if (movementInput > 0)
+        {
+            accelerationSpeed = accelerationSpeed + surfaceacceleration * Time.deltaTime;
+        }
+        // no input, deceleration
+        else
+        {
+            if (accelerationSpeed > 10 * Time.deltaTime)
+            {
+                accelerationSpeed = accelerationSpeed - surfacedecceleration * Time.deltaTime;
+            }
+            else if (accelerationSpeed < -10 * Time.deltaTime)
+            {
+                accelerationSpeed = accelerationSpeed + surfacedecceleration * Time.deltaTime;
+            }
+            else
+            {
+                accelerationSpeed = 0;
+            }
+        }
+
+        // move player with calculated speed
+        Vector3 currentPosition = transform.position;
+
+        // If the player hits the speed limit for slippery surface
+        if((accelerationSpeed > surfaceMaxSpeed || accelerationSpeed < -surfaceMaxSpeed) && surfaceMaxSpeed >= 0)
+        {
+            accelerationSpeed = surfaceMaxSpeed * movementInput;
+        }
+
+        currentPosition.x += accelerationSpeed * Time.deltaTime;
+        transform.position = currentPosition;
     }
 }
