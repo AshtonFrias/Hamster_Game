@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
         
         currentHealth = maxHealth;  //setting health to 10
         healthBar.SetMaxHealth(maxHealth);
+
+        TakeDamage(3);
     }
 
     private void Jump()
@@ -108,6 +110,31 @@ public class PlayerController : MonoBehaviour
             {
                 //LOSE
             }
+        }
+    }
+
+    bool GainHealth(int health) //hamster gains health if food item is picked up and health is not full
+    {
+        if (currentHealth == maxHealth)
+        {
+            return false;
+        }
+        currentHealth = currentHealth + health;
+
+        healthBar.SetHealth(currentHealth);
+
+        return true;
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Health Item"))
+        {
+            if (GainHealth(1))  //if hamster's health is full, the health item cannot be picked up and no health is gained
+            {
+                Destroy(collision.gameObject);
+            }
+
         }
     }
 
