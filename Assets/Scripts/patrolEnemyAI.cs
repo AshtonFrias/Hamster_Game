@@ -15,7 +15,7 @@ public class patrolEnemyAI : MonoBehaviour
     [Header ("Hit Box Settings")]
     [SerializeField] private float range;
     [SerializeField] private float colliderDistance;
-    private BoxCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
 
     [Header ("Patrol Points")]
     [SerializeField] private Transform leftEdge;
@@ -37,7 +37,6 @@ public class patrolEnemyAI : MonoBehaviour
     {
        anim = GetComponent<Animator>();
        enemy = GetComponent<Transform>();
-       boxCollider = GetComponent<BoxCollider2D>();
        initialScale = enemy.localScale;
     }
     // Update is called once per frame
