@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Hit Box Settings")]
     [SerializeField] private float range;
     [SerializeField] private float colliderDistance;
-    private BoxCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
 
 
 
@@ -31,7 +31,6 @@ public class EnemyAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
