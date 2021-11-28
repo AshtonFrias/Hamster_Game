@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Slippy
   - Health Item
+  - Enemy
+  - Health Bar 2
   layers:
   - Default
   - TransparentFX
