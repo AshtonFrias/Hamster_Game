@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth;
     public HealthBar healthBar;
+    public HealthBar2 healthBar2;
 
     //gets/sets the hamster's lives
     public Lives lives;
@@ -47,7 +48,11 @@ public class PlayerController : MonoBehaviour
         playerMovementControls.Land.Jump.performed += _ => Jump();
         
         currentHealth = maxHealth;  //setting health to 10
+
         healthBar.SetMaxHealth(maxHealth);
+
+        healthBar2 = GameObject.FindGameObjectWithTag("Health Bar 2").GetComponent<HealthBar2>();
+        healthBar2.SetMaxHealth(maxHealth);
 
         TakeDamage(3);
     }
@@ -95,6 +100,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
 
         healthBar.SetHealth(currentHealth);
+        healthBar2.SetHealth(currentHealth);
 
         if(currentHealth<=0)
         {
@@ -122,6 +128,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = currentHealth + health;
 
         healthBar.SetHealth(currentHealth);
+        healthBar2.SetHealth(currentHealth);
 
         return true;
     }
