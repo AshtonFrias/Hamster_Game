@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Slippy
   - Health Item
+  - Undefined
+  - Checkpoint
+  - UIOverlay
+  - Health Bar
+  - Lives
+  - Position
   layers:
   - Default
   - TransparentFX

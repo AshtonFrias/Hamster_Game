@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +13,14 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementControls playerMovementControls;
     private Collider2D col;
     private Rigidbody2D rb;
+
+    public SpriteRenderer spriteRenderer;
+
+    //saves the position of hamster for respawns when scene is loaded
+    private PositionController positionController;
+
+    //saves the hamster's health bar and lives when scene is loaded
+    private UIController uiController;
 
     //for setting/getting hamster's max health and current health
     public int maxHealth = 10;
@@ -45,11 +55,19 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerMovementControls.Land.Jump.performed += _ => Jump();
-        
-        currentHealth = maxHealth;  //setting health to 10
-        healthBar.SetMaxHealth(maxHealth);
 
-        TakeDamage(3);
+        lives = GameObject.FindGameObjectWithTag("Lives").GetComponent<Lives>();
+        lives.SetHearts();
+
+        healthBar = GameObject.FindGameObjectWithTag("Health Bar").GetComponent<HealthBar>();
+        healthBar.SetMaxHealth();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        positionController = GameObject.FindGameObjectWithTag("Position").GetComponent<PositionController>();
+        transform.position = positionController.lastCheckpointPosition;
+
+        uiController = GameObject.FindGameObjectWithTag("UIOverlay").GetComponent<UIController>();
     }
 
     private void Jump()
@@ -92,19 +110,21 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth = currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
+        healthBar.currentHealth = healthBar.currentHealth - damage;  //if hamster touches enemy/obstacle, minus 1 health
 
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetHealth();
 
-        if(currentHealth<=0)
+        if (healthBar.currentHealth <= 0)    //if health bar reaches 0, player loses a life
         {
-            lives.LoseLife();
+            //lives.LoseLife();
+            lives.livesRemaining--;
+            lives.SetHearts();
 
-            if(lives.livesRemaining!=0)
+            if (lives.livesRemaining != 0)    //if player still has lives, respawn player at start of level or checkpoint (if a checkpoint was activated)
             {
                 //go back to checkpoint/start
-                healthBar.SetHealth(maxHealth);
-                currentHealth = maxHealth;
+                healthBar.reset();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
             else
             {
@@ -115,13 +135,13 @@ public class PlayerController : MonoBehaviour
 
     bool GainHealth(int health) //hamster gains health if food item is picked up and health is not full
     {
-        if (currentHealth == maxHealth)
+        if (healthBar.currentHealth == healthBar.maxHealth)
         {
             return false;
         }
-        currentHealth = currentHealth + health;
+        healthBar.currentHealth = healthBar.currentHealth + health;
 
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetHealth();
 
         return true;
     }
@@ -132,9 +152,15 @@ public class PlayerController : MonoBehaviour
         {
             if (GainHealth(1))  //if hamster's health is full, the health item cannot be picked up and no health is gained
             {
+                Debug.Log("Health object hit");
                 Destroy(collision.gameObject);
             }
+        }
+        else if (collision.gameObject.CompareTag("Checkpoint")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
+        {
+            Debug.Log("Checkpoint hit");
 
+            positionController.lastCheckpointPosition = transform.position;
         }
     }
 

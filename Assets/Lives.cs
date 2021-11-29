@@ -5,17 +5,23 @@ using UnityEngine.UI;
 
 public class Lives : MonoBehaviour
 {
-    public Image[] lives;
-    public int livesRemaining;
+    private static Lives lives;
+    public Image[] hearts;
+    public int livesRemaining = 3;
 
-    public void LoseLife()  //if hamster's health reaches 0, the player loses a life or loses if none are left
+    public void SetHearts()
     {
-        livesRemaining = livesRemaining - 1;
-        lives[livesRemaining].enabled = false;  //this hides a heart to represent the player lost a life
-
-        if(livesRemaining==0)
+        Debug.Log("setting hearts " + livesRemaining);
+        if (livesRemaining == 0)
         {
             Debug.Log("Game Lost: ran out of lives");
+        }
+        else
+        {
+            for (int i = 2; i > livesRemaining - 1; i--)
+            {
+                hearts[i].enabled = false;
+            }
         }
     }
 }
