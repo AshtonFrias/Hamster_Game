@@ -12,6 +12,9 @@ TagManager:
   - Health Bar
   - Lives
   - Position
+  - Enemy
+  - Level 1 End
+  - Back to Level 1
   layers:
   - Default
   - TransparentFX

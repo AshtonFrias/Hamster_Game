@@ -152,15 +152,22 @@ public class PlayerController : MonoBehaviour
         {
             if (GainHealth(1))  //if hamster's health is full, the health item cannot be picked up and no health is gained
             {
-                Debug.Log("Health object hit");
                 Destroy(collision.gameObject);
             }
         }
         else if (collision.gameObject.CompareTag("Checkpoint")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
         {
-            Debug.Log("Checkpoint hit");
-
             positionController.lastCheckpointPosition = transform.position;
+        }
+
+        else if (collision.gameObject.CompareTag("Level 1 End"))
+        {
+            SceneManager.LoadScene(2);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
+        }
+
+        else if (collision.gameObject.CompareTag("Back to Level 1"))
+        {
+            SceneManager.LoadScene(1);  //The exit in Level 2 goes back to 1
         }
     }
 

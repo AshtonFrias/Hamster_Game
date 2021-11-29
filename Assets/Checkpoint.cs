@@ -16,9 +16,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("contact made with Player -CP");
             animator.Play("LitCheckpoint");
-
             positionController.lastCheckpointPosition = transform.position;
         }
     }

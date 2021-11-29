@@ -11,7 +11,6 @@ public class Lives : MonoBehaviour
 
     public void SetHearts()
     {
-        Debug.Log("setting hearts " + livesRemaining);
         if (livesRemaining == 0)
         {
             Debug.Log("Game Lost: ran out of lives");
