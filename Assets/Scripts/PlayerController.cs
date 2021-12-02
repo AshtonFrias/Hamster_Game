@@ -146,11 +146,28 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    bool GainLife(int life) //hamster gains health if food item is picked up and health is not full
+    {
+        if (lives.livesRemaining==3)
+        {
+            return false;
+        }
+        lives.AddLife();
+        return true;
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Health Item"))
         {
             if (GainHealth(1))  //if hamster's health is full, the health item cannot be picked up and no health is gained
+            {
+                Destroy(collision.gameObject);
+            }
+        }
+        else if (collision.gameObject.CompareTag("Life Collectible"))
+        {
+            if (GainLife(1))  //if hamster's lives are full, this cannot be picked up and no life is gained
             {
                 Destroy(collision.gameObject);
             }

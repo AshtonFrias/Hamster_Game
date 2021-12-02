@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Level 1 End
   - Back to Level 1
+  - Life Collectible
   layers:
   - Default
   - TransparentFX

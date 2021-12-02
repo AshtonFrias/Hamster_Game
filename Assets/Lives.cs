@@ -23,4 +23,10 @@ public class Lives : MonoBehaviour
             }
         }
     }
+
+    public void AddLife()
+    {
+        livesRemaining++;
+        hearts[livesRemaining-1].enabled = true;
+    }
 }
