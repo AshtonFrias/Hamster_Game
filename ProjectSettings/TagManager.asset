@@ -16,6 +16,8 @@ TagManager:
   - Level 1 End
   - Back to Level 1
   - Life Collectible
+  - Tree Platform
+  - Platform
   layers:
   - Default
   - TransparentFX

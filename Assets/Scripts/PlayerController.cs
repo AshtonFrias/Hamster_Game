@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     //gets/sets the hamster's lives
     public Lives lives;
 
+    private bool isGrounded=false;
+
     // triggered when on slippery surface
     public bool isOnSlipperySurface;
     private float accelerationSpeed, surfaceacceleration, surfacedecceleration, surfaceMaxSpeed;
@@ -80,6 +82,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
+        if(isGrounded)
+        {
+            return true;
+        }
         Vector2 topLeftPoint = transform.position;
         topLeftPoint.x -= col.bounds.extents.x;
         topLeftPoint.y += col.bounds.extents.y;
@@ -187,6 +193,23 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(1);  //The exit in Level 2 goes back to 1
         }
     }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
+        {
+            isGrounded = true;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
+        {
+            isGrounded = false;
+        }
+    }
+
 
     public void landedOnSlipperySurface(float _surfaceacceleration, float _surfacedecceleration, float maxSpeed)
     {
