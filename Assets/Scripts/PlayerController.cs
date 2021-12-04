@@ -196,7 +196,14 @@ public class PlayerController : MonoBehaviour
         {
             positionController.lastCheckpointPosition = new Vector2(0.06f, -1.4f);    //resetting to starting position of the underground level
             Debug.Log("Going to Underground...");
-            SceneManager.LoadScene(4);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
+            SceneManager.LoadScene("Underground", LoadSceneMode.Single);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
+        }
+
+        else if (collision.gameObject.CompareTag("Campground"))
+        {
+            positionController.lastCheckpointPosition = new Vector2(0.53f, -0.56f);    //resetting to starting position of the underground level
+            Debug.Log("Going to Campground...");
+            SceneManager.LoadScene("Campground Level", LoadSceneMode.Single);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
         }
 
         else if (collision.gameObject.CompareTag("Back to Level 1"))
