@@ -18,6 +18,10 @@ TagManager:
   - Life Collectible
   - Tree Platform
   - Platform
+  - Saw
+  - Spike
+  - Rock
+  - Ground
   layers:
   - Default
   - TransparentFX

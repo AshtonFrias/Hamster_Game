@@ -178,6 +178,10 @@ public class PlayerController : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+        else if (collision.gameObject.CompareTag("Saw")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
+        {
+            TakeDamage(10);
+        }
         else if (collision.gameObject.CompareTag("Checkpoint")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
         {
             positionController.lastCheckpointPosition = transform.position;
@@ -200,9 +204,14 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+        else if (collision.gameObject.CompareTag("Rock")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
+        {
+            if(collision.gameObject.GetComponent<FallingRock>().damage)
+                TakeDamage(10);
+        }
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+        public void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform")) //if hamster reaches checkpoint, the respawn position is changed to the position of the checkpoint
         {
