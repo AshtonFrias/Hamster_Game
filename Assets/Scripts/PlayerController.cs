@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 
 
+
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -135,6 +136,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //LOSE
+                positionController.lastCheckpointPosition = new Vector2(0.5f,-0.6f);    //resetting to starting position of level
+                healthBar.reset();
+                lives.reset();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
@@ -187,9 +192,11 @@ public class PlayerController : MonoBehaviour
             positionController.lastCheckpointPosition = transform.position;
         }
 
-        else if (collision.gameObject.CompareTag("Level 1 End"))
+        else if (collision.gameObject.CompareTag("Underground"))
         {
-            SceneManager.LoadScene(2);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
+            positionController.lastCheckpointPosition = new Vector2(0.06f, -1.4f);    //resetting to starting position of the underground level
+            Debug.Log("Going to Underground...");
+            SceneManager.LoadScene(4);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
         }
 
         else if (collision.gameObject.CompareTag("Back to Level 1"))

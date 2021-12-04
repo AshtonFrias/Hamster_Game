@@ -13,7 +13,7 @@ public class Lives : MonoBehaviour
     {
         if (livesRemaining == 0)
         {
-            Debug.Log("Game Lost: ran out of lives");
+            //Debug.Log("Game Lost: ran out of lives!");
         }
         else
         {
@@ -28,5 +28,15 @@ public class Lives : MonoBehaviour
     {
         livesRemaining++;
         hearts[livesRemaining-1].enabled = true;
+    }
+
+    public void reset()
+    {
+        livesRemaining=3;
+
+        for (int i = 0; i < livesRemaining; i++)
+        {
+            hearts[i].enabled = true;
+        }
     }
 }

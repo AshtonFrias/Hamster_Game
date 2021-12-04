@@ -22,6 +22,8 @@ TagManager:
   - Spike
   - Rock
   - Ground
+  - StartPos
+  - Underground
   layers:
   - Default
   - TransparentFX

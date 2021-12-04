@@ -30113,7 +30113,7 @@ GameObject:
   - component: {fileID: 1228487095}
   m_Layer: 0
   m_Name: LevelEnd
-  m_TagString: Level 1 End
+  m_TagString: Underground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
