@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2023879733}
   - component: {fileID: 2023879734}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: patrolEnemyEdgeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: -220583330305709499}
   - component: {fileID: 24599789009519991}
   - component: {fileID: 9143927371003025027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy (Patrol)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -113,7 +113,6 @@ MonoBehaviour:
   boxCollider: {fileID: 24599789009519991}
   leftEdge: {fileID: 0}
   rightEdge: {fileID: 0}
-  enemy: {fileID: 8771584102475228527}
   patrolSpeed: 4
   idleTime: 0
 --- !u!212 &8771584102475228524
