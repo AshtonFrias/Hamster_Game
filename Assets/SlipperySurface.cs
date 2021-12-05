@@ -19,7 +19,7 @@ public class SlipperySurface : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player.isOnSlipperySurface = false;
+            //player.isOnSlipperySurface = false;
         }
     }
 }

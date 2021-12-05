@@ -223,6 +223,12 @@ public class PlayerController : MonoBehaviour
             if(collision.gameObject.GetComponent<FallingRock>().damage)
                 TakeDamage(10);
         }
+        
+        
+        if (!collision.gameObject.CompareTag("Slippy")) //if hamster touches a non slippy surface, switch to non-accelerated movement
+        {
+            isOnSlipperySurface = false;
+        }
     }
 
         public void OnCollisionExit2D(Collision2D collision)
@@ -241,10 +247,12 @@ public class PlayerController : MonoBehaviour
         surfacedecceleration = _surfacedecceleration;
         surfaceMaxSpeed = maxSpeed;
 
-        // set the speed/direction of landing on surface
-        float movementInput = playerMovementControls.Land.Move.ReadValue<float>();
-        isOnSlipperySurface = true;
-        accelerationSpeed = movementInput * speed;
+        // set the speed/direction of landing on surface, IF it is a newly touched slippery surface.
+        if (!isOnSlipperySurface) { 
+            float movementInput = playerMovementControls.Land.Move.ReadValue<float>();
+            isOnSlipperySurface = true;
+            accelerationSpeed = movementInput * speed;
+        }
     }
 
     public void slipAcceleration(float movementInput)
