@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295785001}
   - component: {fileID: 295785002}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: enemyEdgeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: -220583330305709499}
   - component: {fileID: 24599789009519991}
   - component: {fileID: 9143927371003025027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy (Agro)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
