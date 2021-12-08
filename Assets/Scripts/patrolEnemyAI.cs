@@ -8,7 +8,7 @@ public class patrolEnemyAI : MonoBehaviour
     [SerializeField] public Transform target;
 
    [SerializeField] private float attackCooldown;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     [SerializeField] private LayerMask playerLayer;
     private float cooldownTimer = Mathf.Infinity;
 
@@ -118,7 +118,7 @@ public class patrolEnemyAI : MonoBehaviour
     {
         if (PlayerInSight())
         {
-            target.gameObject.GetComponent<PlayerController>().TakeDamage(1);
+            target.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
     }
 }
