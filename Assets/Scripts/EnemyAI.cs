@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] public Transform target;
-
+    
     [Header ("Agro Range Settings")]
     [SerializeField] public float chaseRadius;
     [SerializeField] public float speed;
 
     [Header ("Attack Settings")]
     [SerializeField] private float attackCooldown;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     [SerializeField] private LayerMask playerLayer;
     private float cooldownTimer = Mathf.Infinity;
 
@@ -22,8 +22,14 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float colliderDistance;
     [SerializeField] private BoxCollider2D boxCollider;
 
+    [Header("Cliff Detection Settings")]
+    [SerializeField] private float range2;
+    [SerializeField] private float colliderDistance2;
+    [SerializeField] private BoxCollider2D cliffDetector;
+    [SerializeField] private LayerMask groundLayer;
 
-
+    private float LayerGround;
+    bool facingLeft;
     Rigidbody2D rb;
     private Animator anim;
     // Start is called before the first frame update
@@ -37,7 +43,6 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         targetDistance = Vector2.Distance(transform.position, target.position);
-
         cooldownTimer += Time.deltaTime;
 
         if (PlayerInSight())
@@ -54,7 +59,7 @@ public class EnemyAI : MonoBehaviour
         {
             anim.SetBool("attack", false);
 
-            if (targetDistance < chaseRadius)
+            if (targetDistance < chaseRadius && !cliffDetected())
                 chasePlayer();
             else
                 idleAround();
@@ -107,18 +112,34 @@ public class EnemyAI : MonoBehaviour
             return false;
     }
 
+    private bool cliffDetected()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(cliffDetector.bounds.center + transform.right * range2 * transform.localScale.x
+            * colliderDistance2, new Vector3(cliffDetector.bounds.size.x * range2, cliffDetector.bounds.size.y,
+            cliffDetector.bounds.size.z), 0, Vector2.left, 0, groundLayer);
+
+        if (hit.collider == null)
+            return true;
+        else
+            return false;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(cliffDetector.bounds.center + transform.right * range2 * transform.localScale.x * colliderDistance2,
+            new Vector3(cliffDetector.bounds.size.x * range2, cliffDetector.bounds.size.y, cliffDetector.bounds.size.z));
     }
 
     private void attackPlayer()
     {
         if (PlayerInSight())
         {
-            target.gameObject.GetComponent<PlayerController>().TakeDamage(1);
+            target.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
     }
 }
