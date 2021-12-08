@@ -206,6 +206,12 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("Campground Level", LoadSceneMode.Single);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
         }
 
+        else if (collision.gameObject.CompareTag("Home"))
+        {
+            positionController.lastCheckpointPosition = new Vector2(-.54f, 0.2f);    //resetting to starting position of the underground level
+            SceneManager.LoadScene("Home Level", LoadSceneMode.Single);  //Tag the exit then just replace "2" with whatever level you want the scene to go to next
+        }
+
         else if (collision.gameObject.CompareTag("Back to Level 1"))
         {
             SceneManager.LoadScene(1);  //The exit in Level 2 goes back to 1
