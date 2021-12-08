@@ -53,6 +53,63 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!1 &4564933168583375991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8827797810583709600}
+  - component: {fileID: 4057072438217433689}
+  m_Layer: 7
+  m_Name: groundRay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8827797810583709600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4564933168583375991}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.46304, y: 1.8549086, z: -233.75987}
+  m_LocalScale: {x: 5.250311, y: 3.4260807, z: 0.90090084}
+  m_Children: []
+  m_Father: {fileID: 8771584102475228527}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4057072438217433689
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4564933168583375991}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.2059538, y: -0.6057813}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8990364, y: 0.79807276}
+  m_EdgeRadius: 0
 --- !u!1 &8771584102475228304
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +144,7 @@ Transform:
   m_LocalScale: {x: 0.1904649, y: 0.2918787, z: 1.11}
   m_Children:
   - {fileID: 295785001}
+  - {fileID: 8827797810583709600}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -164,6 +222,12 @@ MonoBehaviour:
   range: 0.58
   colliderDistance: 3.71
   boxCollider: {fileID: 24599789009519991}
+  range2: 0.1
+  colliderDistance2: 27
+  cliffDetector: {fileID: 4057072438217433689}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!50 &8771584102475228525
 Rigidbody2D:
   serializedVersion: 4
