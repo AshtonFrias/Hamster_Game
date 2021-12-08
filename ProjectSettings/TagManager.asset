@@ -25,6 +25,8 @@ TagManager:
   - StartPos
   - Underground
   - Campground
+  - Fall
+  - Game Finish
   layers:
   - Default
   - TransparentFX
@@ -32,7 +34,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - Ground
   - 
   - 

@@ -210,6 +210,11 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(1);  //The exit in Level 2 goes back to 1
         }
+
+        else if (collision.gameObject.CompareTag("Game Finish"))
+        {
+            SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);  //Go back to Main Menu
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

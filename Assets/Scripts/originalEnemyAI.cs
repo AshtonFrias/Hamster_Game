@@ -12,7 +12,7 @@ public class originalEnemyAI : MonoBehaviour
 
     [Header("Attack Settings")]
     [SerializeField] private float attackCooldown;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     [SerializeField] private LayerMask playerLayer;
     private float cooldownTimer = Mathf.Infinity;
 
@@ -116,7 +116,7 @@ public class originalEnemyAI : MonoBehaviour
     {
         if (PlayerInSight())
         {
-            target.gameObject.GetComponent<PlayerController>().TakeDamage(2);
+            target.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
     }
 }
