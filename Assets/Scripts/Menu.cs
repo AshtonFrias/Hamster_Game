@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("City");
+        SceneManager.LoadScene("City", LoadSceneMode.Single);
         Debug.Log("Started");
     }
 

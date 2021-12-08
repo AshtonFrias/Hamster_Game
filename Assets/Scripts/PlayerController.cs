@@ -219,7 +219,8 @@ public class PlayerController : MonoBehaviour
 
         else if (collision.gameObject.CompareTag("Game Finish"))
         {
-            SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);  //Go back to Main Menu
+            positionController.lastCheckpointPosition = new Vector2(0f, 0f);    //Reset position in case Player decides to Play Again
+            SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);  //Go back to Main Menu
         }
     }
 
